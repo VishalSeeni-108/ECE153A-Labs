@@ -4,13 +4,16 @@
 #include "xgpio.h"
 #include "sevenSeg_new.h"
 
+
 XIntc sys_intc;
-XTmrCtr sys_tmrctr;
+XTmrCtr sys_tmrctr; //Refresh timer
 Xuint32 data;
 
 unsigned int count = 1;
 XGpio BtnGpio;
-//XGpio led;
+XGpio led;
+
+XTmrCtr inc_tmr; //Increment timer
 
 int value = 0;
 int work_value;
@@ -41,6 +44,27 @@ void button_handler(void *CallbackRef){
 	XGpio_InterruptClear(GpioPtr, 1);
 }
 
+void inc_timer_handler()
+{
+	Xuint32 ControlStatusReg;
+
+	ControlStatusReg =
+				XTimerCtr_ReadReg(inc_tmr.BaseAddress, 0, XTC_TCSR_OFFSET);
+
+	if(!((value == 0 && inc_value == -1) || (value == 999999999 && inc_value == 1)))
+	{
+				value += inc_value;
+	}
+
+
+	/*
+		 * Acknowledge the interrupt by clearing the interrupt
+		 * bit in the timer control status register
+		 */
+		XTmrCtr_WriteReg(inc_tmr.BaseAddress, 0, XTC_TCSR_OFFSET,
+				ControlStatusReg |XTC_CSR_INT_OCCURED_MASK);
+}
+
 
 void timer_handler() {
 	// This is the interrupt handler function
@@ -59,13 +83,15 @@ void timer_handler() {
 
 	//Write to display
 	int seg_num = count % 8;
-	if(seg_num == 0) //Increment value and reset working value
+
+	if(seg_num == 0) //Reset working value
 	{
+		//Incremented moved to timer 1's interrupt
 		//Check if limits reached
-		if(!((value == 0 && inc_value == -1) || (value == 999999999 && inc_value == 1)))
-		{
-			value += inc_value;
-		}
+//		if(!((value == 0 && inc_value == -1) || (value == 999999999 && inc_value == 1)))
+//		{
+//			value += inc_value;
+//		}
 		work_value = value;
 	}
 	int digit_val = work_value % 10;
@@ -96,7 +122,7 @@ void extra_enable() {
 
 int extra_method() {
 
-	//XGpio_Initialize(&led, XPAR_AXI_GPIO_LED_DEVICE_ID);
+	XGpio_Initialize(&led, XPAR_AXI_GPIO_LED_DEVICE_ID);
 
 	//xil_printf("I'm in the main() method\r\n");
 
@@ -132,8 +158,16 @@ int extra_method() {
 		XIntc_Enable(&sys_intc, XPAR_MICROBLAZE_0_AXI_INTC_AXI_GPIO_BTN_IP2INTC_IRPT_INTR);
 
 
+	 //Increment timer initialization
 
+		XTmrCtr_Initialize(&inc_tmr, XPAR_AXI_TIMER_1_DEVICE_ID);
+		XTmrCtr_SetOptions(&inc_tmr, 0, XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION);
+		XTmrCtr_SetResetValue(&inc_tmr, 0, 0xFFFFFFFF - 100000);
+		XTmrCtr_Start(&inc_tmr, 0);
 
+		XIntc_Connect(&sys_intc, XPAR_MICROBLAZE_0_AXI_INTC_AXI_TIMER_1_INTERRUPT_INTR,
+				(XInterruptHandler) inc_timer_handler, &inc_tmr);
+		XIntc_Enable(&sys_intc, XPAR_MICROBLAZE_0_AXI_INTC_AXI_TIMER_1_INTERRUPT_INTR);
 
 	/*
 	 * Connect the application handler that will be called when an interrupt
