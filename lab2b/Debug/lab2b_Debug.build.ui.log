@@ -1,0 +1,34 @@
+2024-11-08T21:19:57.670306600255-21:19:57 **** Incremental Build of configuration Debug for project lab2b ****
+000-make all 
+000-'Building file: ../src/lab2a.c'
+000-'Invoking: MicroBlaze gcc compiler'
+000-mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/lab2a.o" -IC:/Users/visha/workspace/lab2b_plat/export/lab2b_plat/sw/lab2b_plat/standalone_domain/bspinclude/include -mlittle-endian -mxl-barrel-shift -mcpu=v11.0 -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/lab2a.d" -MT"src/lab2a.o" -o "src/lab2a.o" "../src/lab2a.c"
+000-In file included from ../src/qpn_port.h:38,
+000-                 from ../src/lab2a.c:8:
+000/lab2b_plat/export/lab2b_plat/sw/lab2b_plat/standalone_domain/bspinclude/include/xbasic_types.h102-1-1#warning The xbasics_type.h file is deprecated and users should use xil_types.h and xil_assert. [-Wcpp]1-C:/Users/visha/workspace/lab2b_plat/export/lab2b_plat/sw/lab2b_plat/standalone_domain/bspinclude/include/xbasic_types.h:102:2: warning: #warning The xbasics_type.h file is deprecated and users should use xil_types.h and xil_assert. [-Wcpp]
+000-  102 | #warning  The xbasics_type.h file is deprecated and users should use xil_types.h and xil_assert.
+000-      |  ^~~~~~~
+000/lab2b_plat/export/lab2b_plat/sw/lab2b_plat/standalone_domain/bspinclude/include/xbasic_types.h103-1-1#warning Please refer the Standalone BSP UG647 for further details [-Wcpp]1-C:/Users/visha/workspace/lab2b_plat/export/lab2b_plat/sw/lab2b_plat/standalone_domain/bspinclude/include/xbasic_types.h:103:2: warning: #warning Please refer the Standalone BSP UG647 for further details [-Wcpp]
+000-  103 | #warning  Please refer the Standalone BSP UG647 for further details
+000-      |  ^~~~~~~
+000-'Finished building: ../src/lab2a.c'
+000-' '
+000-'Building file: ../src/lcd.c'
+000-'Invoking: MicroBlaze gcc compiler'
+000-mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/lcd.o" -IC:/Users/visha/workspace/lab2b_plat/export/lab2b_plat/sw/lab2b_plat/standalone_domain/bspinclude/include -mlittle-endian -mxl-barrel-shift -mcpu=v11.0 -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/lcd.d" -MT"src/lcd.o" -o "src/lcd.o" "../src/lcd.c"
+000-'Finished building: ../src/lcd.c'
+000-' '
+000-'Building target: lab2b.elf'
+000-'Invoking: MicroBlaze gcc linker'
+000-mb-gcc -Wl,-T -Wl,../src/lscript.ld -LC:/Users/visha/workspace/lab2b_plat/export/lab2b_plat/sw/lab2b_plat/standalone_domain/bsplib/lib -mlittle-endian -mxl-barrel-shift -mcpu=v11.0 -mno-xl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "lab2b.elf"  ./src/bsp.o ./src/fonts.o ./src/lab2a.o ./src/lcd.o ./src/main.o ./src/platform.o ./src/qepn.o ./src/qfn.o ./src/qfn_init.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+000-'Finished building target: lab2b.elf'
+000-' '
+000-'Invoking: MicroBlaze Print Size'
+000-mb-size lab2b.elf  |tee "lab2b.elf.size"
+000-   text	   data	    bss	    dec	    hex	filename
+000-  24080	   4684	   8828	  37592	   92d8	lab2b.elf
+000-'Finished building: lab2b.elf.size'
+000-' '
+00255-
+21:19:58 Build Finished (took 1s.20ms)
+

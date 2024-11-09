@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="lab2a" location="C:/Users/visha/workspace/lab2a" platform="C:/Users/visha/workspace/lab2a_plat/export/lab2a_plat/lab2a_plat.xpfm" platformUID="xilinx:::0.0(custom)" systemProject="lab2a_system" sysConfig="lab2a_plat" runtime="C/C++" cpu="standalone_domain" cpuInstance="microblaze_0" os="standalone" mssSignature="5927fed11e7dfacda517cb08204aff2d">
+  <configuration name="Debug" id="xilinx.gnu.mb.exe.debug.2144632415">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.mb.exe.release.103619867" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="hello_world"/>
+</sdkproject:SdkProject>
